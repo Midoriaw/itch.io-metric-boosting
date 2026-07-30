@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 D:ROCHILA Automation
+# 🚀 itch.io Automation
 
 ### traffic generator
 
