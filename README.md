@@ -14,7 +14,7 @@
 
 # 📖 About
 
-**D:ROCHILA Automation** is a Python desktop application created to automate repetitive actions in a web browser.
+**itch.io Automation** is a Python desktop application created to automate repetitive actions in a web browser.
 
 The current implementation contains two automation modules:
 
