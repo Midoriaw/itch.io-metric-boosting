@@ -21,8 +21,6 @@ The current implementation contains two automation modules:
 - **Itch.io** — automates opening game pages and simulates short play sessions.
 - **TikTok** — automates opening videos and simulates viewing sessions with basic browser interaction.
 
-The project was created as a learning exercise to explore Selenium, browser automation, desktop GUI development and anti-detection techniques.
-
 ---
 
 # ✨ Features
