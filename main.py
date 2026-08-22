@@ -19,7 +19,7 @@ class BotGUI(ctk.CTk):
         self.bot_thread = None
         self.iteration_count = 0
 
-        # Инициализируем ОБА бота
+     
         self.itch_bot = ItchBot(log_func=self.log)
         self.tiktok_bot = TikTokBot(log_func=self.log)
 
@@ -28,13 +28,13 @@ class BotGUI(ctk.CTk):
         self.sidebar_is_open = True
         self.sidebar_width = 160
 
-        # --- ГЛАВНАЯ СЕТКА ---
+
         self.grid_columnconfigure(0, weight=0)  # кнопка toggle
         self.grid_columnconfigure(1, weight=0)  # сайдбар
         self.grid_columnconfigure(2, weight=1)  # контент
         self.grid_rowconfigure(0, weight=1)
 
-        # 1. Кнопка toggle (ВСЕГДА ВИДИМА)
+    
         self.toggle_frame = ctk.CTkFrame(self, width=40, fg_color="transparent")
         self.toggle_frame.grid(row=0, column=0, sticky="nsew")
         self.toggle_frame.grid_propagate(False)
@@ -47,7 +47,7 @@ class BotGUI(ctk.CTk):
         )
         self.btn_toggle_sidebar.pack(anchor="center", pady=10)
 
-        # 2. Боковая панель
+    
         self.sidebar_frame = ctk.CTkFrame(self, width=self.sidebar_width, corner_radius=0, fg_color="#1E1E24")
         self.sidebar_frame.grid(row=0, column=1, sticky="nsew")
         self.sidebar_frame.grid_propagate(False)
@@ -66,15 +66,14 @@ class BotGUI(ctk.CTk):
         )
         self.btn_tab_tt.pack(fill="x", padx=10, pady=5)
 
-        # 3. Контейнер для контента (ОБЩИЙ для обеих вкладок)
         self.content_frame = ctk.CTkFrame(self, fg_color="transparent")
         self.content_frame.grid(row=0, column=2, sticky="nsew", padx=20, pady=10)
 
-        # --- ЗАГОЛОВОК ВКЛАДКИ ---
+   
         self.label_url = ctk.CTkLabel(self.content_frame, text="Ссылка на игру Itch.io:", font=("Arial", 14, "bold"))
         self.label_url.pack(pady=(10, 5), anchor="w")
 
-        # --- ПОЛЕ ВВОДА ССЫЛКИ ---
+     
         self.entry_url = ctk.CTkEntry(
             self.content_frame, height=35,
             placeholder_text="https://itch.io",
@@ -84,14 +83,14 @@ class BotGUI(ctk.CTk):
         self.entry_url.pack(pady=5, fill="x")
         self.setup_hotkeys()
 
-        # --- НАСТРОЙКИ: КОЛИЧЕСТВО И СКОРОСТЬ ---
+       
         self.settings_frame = ctk.CTkFrame(self.content_frame, fg_color="#1E1E24", corner_radius=10)
         self.settings_frame.pack(pady=15, fill="x")
 
         settings_row = ctk.CTkFrame(self.settings_frame, fg_color="transparent")
         settings_row.pack(fill="x", padx=15, pady=15)
 
-        # Количество запусков
+      
         col1 = ctk.CTkFrame(settings_row, fg_color="transparent")
         col1.pack(side="left", expand=True, fill="x", padx=(0, 10))
 
@@ -108,7 +107,7 @@ class BotGUI(ctk.CTk):
         self.entry_amount.pack(fill="x")
         self.entry_amount.insert(0, "0")
 
-        # Скорость выполнения
+     
         col2 = ctk.CTkFrame(settings_row, fg_color="transparent")
         col2.pack(side="left", expand=True, fill="x")
 
@@ -126,7 +125,6 @@ class BotGUI(ctk.CTk):
         )
         self.speed_menu.pack(fill="x")
 
-        # --- КОМПАКТНЫЙ СЧЕТЧИК ---
         self.counter_frame = ctk.CTkFrame(self.content_frame, fg_color="#1E1E24", corner_radius=8)
         self.counter_frame.pack(pady=10)
 
@@ -142,14 +140,14 @@ class BotGUI(ctk.CTk):
         )
         self.iteration_desc.pack(side="left", padx=(0, 15), pady=10)
 
-        # --- СТАТУС ---
+       
         self.label_status = ctk.CTkLabel(
             self.content_frame, text="Готов к работе",
             font=("Arial", 12, "italic"), text_color="#3498db"
         )
         self.label_status.pack(pady=5)
 
-        # --- КНОПКИ УПРАВЛЕНИЯ (ВЫРАВНЕНЫ ПО ЦЕНТРУ) ---
+       
         self.frame_buttons = ctk.CTkFrame(self.content_frame, fg_color="transparent")
         self.frame_buttons.pack(pady=10, anchor="center")
 
@@ -169,7 +167,6 @@ class BotGUI(ctk.CTk):
         )
         self.btn_stop.grid(row=0, column=1, padx=10)
 
-    # --- МЕТОДЫ УПРАВЛЕНИЯ ---
 
     def toggle_sidebar(self):
         if self.sidebar_is_open:
@@ -185,14 +182,14 @@ class BotGUI(ctk.CTk):
         if tab_name == "itch":
             self.btn_tab_itch.configure(fg_color="#2A2A32")
             self.btn_tab_tt.configure(fg_color="transparent")
-            # Меняем только текст
+         
             self.label_url.configure(text="Ссылка на игру Itch.io:")
             self.entry_url.configure(placeholder_text="https://itch.io")
 
         elif tab_name == "tt":
             self.btn_tab_itch.configure(fg_color="transparent")
             self.btn_tab_tt.configure(fg_color="#2A2A32")
-            # Меняем только текст
+        
             self.label_url.configure(text="Ссылка на видео TikTok:")
             self.entry_url.configure(placeholder_text="https://tiktok.com/@user/video/...")
 
@@ -295,7 +292,7 @@ class BotGUI(ctk.CTk):
 
         self.is_running = True
 
-        # Выбираем нужный бот в зависимости от вкладки
+        
         if self.current_tab == "itch":
             bot = self.itch_bot
             method_name = "play_game_cycle"
