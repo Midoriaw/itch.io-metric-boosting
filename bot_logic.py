@@ -54,7 +54,7 @@ class ItchBot:
 class TikTokBot:
     def __init__(self, log_func):
         self.log = log_func
-        # Папка для сохранения профиля браузера (cookies, история)
+     
         self.profile_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tiktok_profile")
         os.makedirs(self.profile_dir, exist_ok=True)
 
@@ -66,17 +66,15 @@ class TikTokBot:
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--disable-blink-features=AutomationControlled")
 
-        # Твоё разрешение
+  
         options.add_argument("--window-size=1440,1440")
 
-        # User-Agent
         options.add_argument(
             "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
         )
 
-        # ВАЖНО: сохраняем профиль браузера между запусками
-        # Это делает поведение более "человечным" - TikTok видит "того же пользователя"
+
         options.add_argument(f"--user-data-dir={self.profile_dir}")
 
         driver = uc.Chrome(options=options, version_main=149)
@@ -86,7 +84,7 @@ class TikTokBot:
         """Имитирует человеческое движение мыши"""
         try:
             actions = ActionChains(driver)
-            # Случайные движения по странице
+     
             for _ in range(random.randint(2, 5)):
                 x_offset = random.randint(-100, 100)
                 y_offset = random.randint(-100, 100)
@@ -137,35 +135,30 @@ class TikTokBot:
             self.log(f"Открываем TikTok видео: {video_url}")
             driver.get(video_url)
 
-            # Даём странице загрузиться
+          
             time.sleep(3)
 
-            # Имитируем движение мыши
             self._human_like_mouse_move(driver)
 
-            # Закрываем попапы
             self._close_popups(driver)
             time.sleep(1)
             self._close_popups(driver)
 
             try:
-                # Ищем видео
                 video_element = None
 
-                # Способ 1: тег video
                 try:
                     video_element = wait.until(EC.presence_of_element_located((By.TAG_NAME, "video")))
                 except:
                     pass
 
-                # Способ 2: через xgplayer
                 if not video_element:
                     try:
                         video_element = driver.find_element(By.CSS_SELECTOR, "video.xg-video")
                     except:
                         pass
 
-                # Способ 3: любой video
+  
                 if not video_element:
                     try:
                         videos = driver.find_elements(By.TAG_NAME, "video")
@@ -176,21 +169,19 @@ class TikTokBot:
 
                 if video_element:
                     self.log("Видео найдено, запускаем просмотр...")
-
-                    # Пытаемся запустить видео
+     
                     try:
                         driver.execute_script("arguments[0].muted = true;", video_element)
                         driver.execute_script("arguments[0].volume = 0;", video_element)
                         driver.execute_script("arguments[0].play();", video_element)
                     except Exception as e:
                         self.log(f"Не удалось автозапустить: {e}")
-                        # Кликаем по видео
+                      
                         try:
                             video_element.click()
                         except:
                             pass
 
-                    # Проверяем, играет ли видео
                     time.sleep(2)
                     is_playing = self._check_if_video_playing(driver, video_element)
 
@@ -210,7 +201,7 @@ class TikTokBot:
                     else:
                         self.log("✗ Видео не играет (возможна блокировка)")
 
-                    # "Смотрим" видео
+                
                     self.log(f"Просмотр видео ({session_duration} сек)...")
 
                     elapsed = 0
@@ -218,7 +209,7 @@ class TikTokBot:
                         time.sleep(1)
                         elapsed += 1
 
-                        # Имитация активности каждые 2-3 секунды
+                      
                         if elapsed % random.randint(2, 3) == 0:
                             self._human_like_mouse_move(driver)
                             try:
@@ -227,11 +218,11 @@ class TikTokBot:
                             except:
                                 pass
 
-                        # Периодически закрываем попапы
+                  
                         if elapsed % 4 == 0:
                             self._close_popups(driver)
 
-                        # Проверяем, продолжает ли видео играть
+                   
                         if elapsed % 3 == 0:
                             if not self._check_if_video_playing(driver, video_element):
                                 self.log("Видео остановилось, пробуем перезапустить...")
