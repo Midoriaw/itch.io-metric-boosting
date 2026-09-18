@@ -67,29 +67,6 @@ The current implementation contains two automation modules:
 
 ![](screenshots/tiktok.png)
 
----
-
-# 📦 Download
-
-A compiled executable is available inside:
-
-```
-release/D-ROCHILA.exe
-```
-
----
-
-# 🎯 What this project demonstrates
-
-- Selenium automation
-- Browser interaction
-- WebDriverWait
-- Dynamic element handling
-- Browser profile management
-- Desktop GUI development
-- Python application architecture
-
----
 
 # ⚠ Disclaimer
 
@@ -97,21 +74,6 @@ This repository is published for educational and portfolio purposes.
 
 Users are responsible for ensuring that any use of this software complies with the terms of service of the websites they interact with.
 
----
-
-# 🚀 Run
-
-```bash
-python main.py
-```
-
-or launch
-
-```
-release/D-ROCHILA.exe
-```
-
----
 
 # 👨‍💻 Author
 
